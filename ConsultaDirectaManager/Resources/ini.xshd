@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SyntaxDefinition name="ini" extensions=".ini"
+                  xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="String" foreground="Olive" exampleText="string text = &quot;Hello, World!&quot;"/>
+  <Color name="String2" foreground="#993" exampleText="string text = &quot;Hello, World!&quot;"/>
+  <Color name="Comment" foreground="Green" exampleText="string text = &quot;Hello, World!&quot;"/>
+  <Color name="Punctuation" foreground="Red" exampleText="string text = &quot;Hello, World!&quot;"/>
+  <Color name="Section" foreground="Blue" exampleText="string text = &quot;Hello, World!&quot;"/>
+  <RuleSet  ignoreCase="true">
+    <Span color="String" multiline="false" >
+      <Begin>'</Begin>
+      <End>'</End>
+
+    </Span>
+    <Span color="String2" multiline="true"  >
+      <Begin>"</Begin>
+      <End>"</End>
+    </Span>
+    <!-- span for escape sequences -->
+    <Span  color="Comment" begin=";" end="\n"/>
+    <Span color="Comment"  multiline="true">
+      <Begin>/\*</Begin>
+      <End>\*/</End>
+    </Span>
+    <Span color="Section" begin="\[" end="\]"/>
+
+    <Keywords fontWeight="bold" foreground="Blue" >
+      <Word>ABORT</Word>
+    </Keywords>
+    <Rule color="Punctuation">
+      [?,.;()\[\]{}+\-/%*&lt;&gt;^+~!|&amp;]+
+    </Rule>
+
+  </RuleSet>
+</SyntaxDefinition>

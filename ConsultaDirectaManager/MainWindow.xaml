@@ -4,12 +4,65 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConsultaDirectaManager"
+        xmlns:Cmds="clr-namespace:ConsultaDirectaManager.Cmds"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d"
-        Title="Consulta Directa Manager" Height="600" Width="800">
+        Title="Consulta Directa Manager" Height="600" Width="800" Loaded="Window_Loaded">
+    <Window.CommandBindings>
+        <CommandBinding Command="Cmds:Cmds.Abrir"  
+                        CanExecute="CmdAbir_CanExecute"
+                        Executed="CmdAbir_Executed" />
+        <CommandBinding Command="Cmds:Cmds.Guardar"  
+                        CanExecute="CmdGuardar_CanExecute"
+                        Executed="CmdGuardar_Executed" />
+        <CommandBinding Command="Cmds:Cmds.Salir"  
+                        CanExecute="CmdSalir_CanExecute"
+                        Executed="CmdSalir_Executed" />
+    </Window.CommandBindings>
     <Grid>
-        <TabControl>
-            <TabItem Header="Configuración"></TabItem>
-            <TabItem Header="Consulta"></TabItem>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="_Archivo">
+                <MenuItem Command="Cmds:Cmds.Abrir"/>
+                <Separator/>
+                <MenuItem Command="Cmds:Cmds.Salir"/>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1" Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label>Nombre</Label>
+            <TextBox Grid.Column="1" VerticalAlignment="Stretch"></TextBox>
+        </Grid>
+        <TabControl Grid.Row="2" Margin="2">
+            <TabItem Header="Configuración">
+                <avalonEdit:TextEditor
+                Name="txtCfg"
+                FontFamily="Consolas"
+                SyntaxHighlighting="SQL">
+                    <avalonEdit:TextEditor.Text>
+                        Cfg
+                    </avalonEdit:TextEditor.Text>
+                </avalonEdit:TextEditor>
+            </TabItem>
+            <TabItem Header="Consulta">
+                <avalonEdit:TextEditor
+                Name="txtSQL"
+                FontFamily="Consolas"
+                SyntaxHighlighting="SQL">
+                    <avalonEdit:TextEditor.Text>
+                        SELECT * FROM
+                    </avalonEdit:TextEditor.Text>
+                </avalonEdit:TextEditor>
+            </TabItem>
         </TabControl>
+        <StatusBar Grid.Row="3"></StatusBar>
     </Grid>
 </Window>
