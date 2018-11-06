@@ -44,22 +44,18 @@
         <TabControl Grid.Row="2" Margin="2">
             <TabItem Header="Configuración">
                 <avalonEdit:TextEditor
-                Name="txtCfg"
-                FontFamily="Consolas"
-                SyntaxHighlighting="SQL">
-                    <avalonEdit:TextEditor.Text>
-                        Cfg
-                    </avalonEdit:TextEditor.Text>
+                    Margin="2"
+                    Name="txtCfg"
+                    FontFamily="Consolas"
+                    SyntaxHighlighting="SQL">
                 </avalonEdit:TextEditor>
             </TabItem>
             <TabItem Header="Consulta">
                 <avalonEdit:TextEditor
-                Name="txtSQL"
-                FontFamily="Consolas"
-                SyntaxHighlighting="SQL">
-                    <avalonEdit:TextEditor.Text>
-                        SELECT * FROM
-                    </avalonEdit:TextEditor.Text>
+                    Margin="2"
+                    Name="txtSQL"
+                    FontFamily="Consolas"
+                    SyntaxHighlighting="SQL">
                 </avalonEdit:TextEditor>
             </TabItem>
         </TabControl>
