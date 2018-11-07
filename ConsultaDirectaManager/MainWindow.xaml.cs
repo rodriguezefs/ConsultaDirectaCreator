@@ -37,40 +37,46 @@ namespace ConsultaDirectaManager {
 
             if (lxDlg.ShowDialog() == true) {
                 string lxNomArch = lxDlg.FileName;
-                string lxFldr = Path.Combine(@"C:\temp\", Path.GetRandomFileName());
+                txtArchLatis.Text = lxNomArch;
 
-                if (!Directory.Exists(lxFldr)) { Directory.CreateDirectory(lxFldr); }
+                string lxFldrDst = Path.Combine(@"C:\temp\", Path.GetRandomFileName());
 
-                using (Stream stream = File.OpenRead(lxNomArch)) {
-                    var reader = ReaderFactory.Open(stream);
-                    while (reader.MoveToNextEntry()) {
-                        if (!reader.Entry.IsDirectory) {
-                            Console.WriteLine(reader.Entry.Key);
+                ExtraerTodoslosArchivos(lxNomArch, lxFldrDst);
 
-                            reader.WriteEntryToDirectory(lxFldr, new ExtractionOptions() { ExtractFullPath = false, Overwrite = true });
-                        }
-                    }
-                    string lxCfgFile = Path.Combine(lxFldr, "cfg.ini");
-                    string lxCfgText = "";
-                    if (File.Exists(lxCfgFile)) {
-                        lxCfgText = File.ReadAllText(lxCfgFile);
-                        txtCfg.Text = lxCfgText;
-                    }
+                string lxCfgFile = Path.Combine(lxFldrDst, "cfg.ini");
+                string lxCfgText = "";
+                if (File.Exists(lxCfgFile)) {
+                    lxCfgText = File.ReadAllText(lxCfgFile);
+                    txtCfg.Text = lxCfgText;
+                }
 
-                    string lxNomScript = lxCfgText.Split('\r')
-                                                  .FirstOrDefault(x => x.ToLower().Contains("script"))
-                                                  .ToString()
-                                                  .Split('=')[1];
+                string lxNomScript = lxCfgText.Split('\r')
+                                              .FirstOrDefault(x => x.ToLower().Contains("script"))
+                                              .ToString()
+                                              .Split('=')[1];
 
-                    string lxNomScriptFile = Path.Combine(lxFldr, lxNomScript);
-                    if (File.Exists(lxNomScriptFile)) {
-                        string lxScriptText = File.ReadAllText(lxNomScriptFile);
-                        txtSQL.Text = lxScriptText;
-                    }
-
+                string lxNomScriptFile = Path.Combine(lxFldrDst, lxNomScript);
+                if (File.Exists(lxNomScriptFile)) {
+                    string lxScriptText = File.ReadAllText(lxNomScriptFile);
+                    txtSQL.Text = lxScriptText;
                 }
             }
+        }
 
+        private void ExtraerTodoslosArchivos(string NomArch, string FldrDst) {
+
+            if (!Directory.Exists(FldrDst)) { Directory.CreateDirectory(FldrDst); }
+
+            using (Stream stream = File.OpenRead(NomArch)) {
+                var reader = ReaderFactory.Open(stream);
+                while (reader.MoveToNextEntry()) {
+                    if (!reader.Entry.IsDirectory) {
+                        Console.WriteLine(reader.Entry.Key);
+
+                        reader.WriteEntryToDirectory(FldrDst, new ExtractionOptions() { ExtractFullPath = false, Overwrite = true });
+                    }
+                }
+            }
         }
 
         private void CmdAbir_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -96,6 +102,7 @@ namespace ConsultaDirectaManager {
         private void CmdSalir_Executed(object sender, ExecutedRoutedEventArgs e) {
             Application.Current.Shutdown();
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e) {
             var resourceNames = Assembly.GetExecutingAssembly().GetManifestResourceNames();
 
