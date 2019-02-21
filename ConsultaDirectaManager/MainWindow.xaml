@@ -7,7 +7,7 @@
         xmlns:Cmds="clr-namespace:ConsultaDirectaManager.Cmds"
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d"
-        Title="Consulta Directa Manager" Height="600" Width="800" Loaded="Window_Loaded">
+        Title="Consulta Directa Creator" Height="640" Width="800" Loaded="Window_Loaded">
     <Window.CommandBindings>
         <CommandBinding Command="Cmds:Cmds.Abrir"  
                         CanExecute="CmdAbir_CanExecute"
@@ -18,6 +18,9 @@
         <CommandBinding Command="Cmds:Cmds.Salir"  
                         CanExecute="CmdSalir_CanExecute"
                         Executed="CmdSalir_Executed" />
+        <CommandBinding Command="Cmds:Cmds.Nuevo"
+                        CanExecute="CmdNuevo_CanExecute"
+                        Executed="CmdNuevo_Executed"/>
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -29,6 +32,9 @@
         <Menu>
             <MenuItem Header="_Archivo">
                 <MenuItem Command="Cmds:Cmds.Abrir"/>
+                <MenuItem Command="Cmds:Cmds.Nuevo"/>
+                <Separator/>
+                <MenuItem Command="Cmds:Cmds.Guardar"/>
                 <Separator/>
                 <MenuItem Command="Cmds:Cmds.Salir"/>
             </MenuItem>

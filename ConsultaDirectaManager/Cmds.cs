@@ -16,6 +16,14 @@ namespace ConsultaDirectaManager.Cmds {
                 new KeyGesture(Key.A, ModifierKeys.Control)
         });
 
+        public static readonly RoutedUICommand Nuevo = new RoutedUICommand(
+            "Nuevo",
+            "cmdNuevo",
+            typeof(Cmds),
+            new InputGestureCollection() {
+                new KeyGesture(Key.N, ModifierKeys.Control)
+        });
+
         public static readonly RoutedUICommand Guardar = new RoutedUICommand(
             "Guadar",
             "cmdGuardar",
