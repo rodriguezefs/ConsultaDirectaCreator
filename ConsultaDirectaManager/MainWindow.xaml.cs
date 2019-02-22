@@ -32,6 +32,7 @@ namespace ConsultaDirectaManager {
     public partial class MainWindow : Window {
         private const string CFG_INI = "cfg.ini";
 
+
         public MainWindow() {
             InitializeComponent();
         }
@@ -65,6 +66,13 @@ namespace ConsultaDirectaManager {
                     string lxScriptText = File.ReadAllText(lxNomScriptFile, Encoding.GetEncoding(1252));
                     txtSQL.Text = lxScriptText;
                 }
+
+                try {
+                    //Eliminar directorio temporal
+                    Directory.Delete(lxFldrDst, true);
+                } catch (Exception ex) {
+                    _ = MessageBox.Show(ex.Message, "Abrir", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -92,12 +100,17 @@ namespace ConsultaDirectaManager {
                 }
             }
 
-            //Eliminar directorio temporal
-            Directory.Delete(lxDir);
+            try {
+                //Eliminar directorio temporal
+                Directory.Delete(lxDir, true);
+            } catch (Exception ex) {
+                _ = MessageBox.Show(ex.Message, "Guardar", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void ArchivoNuevo() {
-            
+
 
             SaveFileDialog lxDlg = new SaveFileDialog();
             lxDlg.DefaultExt = ".latis";
@@ -114,13 +127,13 @@ namespace ConsultaDirectaManager {
                 "[CFG]" + Environment.NewLine +
                 "Ver=2" + Environment.NewLine +
                 "Dsc=" + Environment.NewLine +
-                "Script=" + lxNomScript +".sql" + Environment.NewLine +
+                "Script=" + lxNomScript + ".sql" + Environment.NewLine +
                 "RtnReg=1" + Environment.NewLine +
                 "" + Environment.NewLine +
                 "[Ifo]" + Environment.NewLine +
                 "Mdl=3200" + Environment.NewLine +
                 "NomQry=" + Environment.NewLine +
-                "IdQry="+ lxNomScript.Truncate(10) + Environment.NewLine +
+                "IdQry=" + lxNomScript.Truncate(10) + Environment.NewLine +
                 "" + Environment.NewLine +
                 "[Pmt]" + Environment.NewLine +
                 ";Pmtn=Nombre Publico|Nombre Parametro|Tipo|Default" + Environment.NewLine +
@@ -137,6 +150,23 @@ namespace ConsultaDirectaManager {
             }
         }
 
+        private void ExtraerTodoslosArchivos(string NomArch, string FldrDst) {
+
+            if (!Directory.Exists(FldrDst)) { Directory.CreateDirectory(FldrDst); }
+
+            using (Stream stream = File.OpenRead(NomArch)) {
+                var reader = ReaderFactory.Open(stream);
+                while (reader.MoveToNextEntry()) {
+                    if (!reader.Entry.IsDirectory) {
+                        Console.WriteLine(reader.Entry.Key);
+
+                        reader.WriteEntryToDirectory(FldrDst, new ExtractionOptions() { ExtractFullPath = false, Overwrite = true });
+                    }
+                }
+            }
+        }
+
+        #region "Eventos de la forma"
         private void CmdAbir_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
             e.CanExecute = true;
         }
@@ -169,21 +199,6 @@ namespace ConsultaDirectaManager {
             Application.Current.Shutdown();
         }
 
-        private void ExtraerTodoslosArchivos(string NomArch, string FldrDst) {
-
-            if (!Directory.Exists(FldrDst)) { Directory.CreateDirectory(FldrDst); }
-
-            using (Stream stream = File.OpenRead(NomArch)) {
-                var reader = ReaderFactory.Open(stream);
-                while (reader.MoveToNextEntry()) {
-                    if (!reader.Entry.IsDirectory) {
-                        Console.WriteLine(reader.Entry.Key);
-
-                        reader.WriteEntryToDirectory(FldrDst, new ExtractionOptions() { ExtractFullPath = false, Overwrite = true });
-                    }
-                }
-            }
-        }
         private void Window_Loaded(object sender, RoutedEventArgs e) {
             var resourceNames = Assembly.GetExecutingAssembly().GetManifestResourceNames();
 
@@ -202,5 +217,7 @@ namespace ConsultaDirectaManager {
                 }
             }
         }
+        #endregion
+        
     }
 }
