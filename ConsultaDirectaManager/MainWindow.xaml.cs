@@ -99,7 +99,8 @@ namespace ConsultaDirectaManager {
                     }
                 }
             }
-
+            StatusBarSet($"Archivo '{NomArchLatis}' Guardado.");
+            
             try {
                 //Eliminar directorio temporal
                 Directory.Delete(lxDir, true);
@@ -164,6 +165,11 @@ namespace ConsultaDirectaManager {
                     }
                 }
             }
+        }
+
+        private void StatusBarSet(string msg = "")
+        {
+            txtStatus.Text = msg;
         }
 
         #region "Eventos de la forma"

@@ -65,6 +65,10 @@
                 </avalonEdit:TextEditor>
             </TabItem>
         </TabControl>
-        <StatusBar Grid.Row="3"></StatusBar>
+        <StatusBar Grid.Row="3">
+            <StatusBarItem>
+                <TextBlock x:Name="txtStatus" Width="auto"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>
