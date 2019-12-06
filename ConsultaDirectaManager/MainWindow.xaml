@@ -57,18 +57,41 @@
                 </avalonEdit:TextEditor>
             </TabItem>
             <TabItem Header="Consulta">
-                <avalonEdit:TextEditor
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <ToolBarTray>
+                        <ToolBar>
+                            <Button x:Name="cmdConectar">Conectar</Button>
+                            <Separator/>
+                            <Button x:Name="cmdEjecutarQry">Ejecutar</Button>
+                        </ToolBar>
+                    </ToolBarTray>
+                    <avalonEdit:TextEditor
+                    Grid.Row="1"
                     Margin="2"
                     Name="txtSQL"
                     FontFamily="Consolas"
-                    SyntaxHighlighting="SQL">
-                </avalonEdit:TextEditor>
+                    SyntaxHighlighting="SQL" KeyUp="txtSQL_KeyUp"/>
+                </Grid>
             </TabItem>
         </TabControl>
         <StatusBar Grid.Row="3">
-            <StatusBarItem>
-                <TextBlock x:Name="txtStatus" Width="auto"/>
-            </StatusBarItem>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StatusBarItem DockPanel.Dock="Left" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                    <TextBlock x:Name="txtStatus"/>
+                </StatusBarItem>
+                <StatusBarItem Grid.Column="1">
+                    <TextBlock x:Name="txtLocation" Width="60"/>
+                </StatusBarItem>
+            </Grid>
         </StatusBar>
     </Grid>
 </Window>

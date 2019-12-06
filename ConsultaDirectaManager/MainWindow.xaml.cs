@@ -24,6 +24,7 @@ using Path = System.IO.Path;
 using SharpCompress.Archives.Zip;
 using SharpCompress.Writers;
 using ConsultaDirectaManager.Util;
+using ICSharpCode.AvalonEdit.Document;
 
 namespace ConsultaDirectaManager {
     /// <summary>
@@ -113,10 +114,12 @@ namespace ConsultaDirectaManager {
         private void ArchivoNuevo() {
 
 
-            SaveFileDialog lxDlg = new SaveFileDialog();
-            lxDlg.DefaultExt = ".latis";
-            lxDlg.AddExtension = true;
-            lxDlg.Filter = "Todos (*.*)|*.*|Latis (*.latis)|*.latis|Zip (*.zip)|*.zip";
+            SaveFileDialog lxDlg = new SaveFileDialog
+            {
+                DefaultExt = ".latis",
+                AddExtension = true,
+                Filter = "Todos (*.*)|*.*|Latis (*.latis)|*.latis|Zip (*.zip)|*.zip"
+            };
 
             if (lxDlg.ShowDialog() == true) {
                 string lxNomArch = lxDlg.FileName;
@@ -125,28 +128,27 @@ namespace ConsultaDirectaManager {
                 string lxNomScript = Path.GetFileNameWithoutExtension(lxNomArch);
 
                 string lxTemplate =
-                "[CFG]" + Environment.NewLine +
-                "Ver=2" + Environment.NewLine +
-                "Dsc=" + Environment.NewLine +
-                "Script=" + lxNomScript + ".sql" + Environment.NewLine +
-                "RtnReg=1" + Environment.NewLine +
-                "" + Environment.NewLine +
-                "[Ifo]" + Environment.NewLine +
-                "Mdl=3200" + Environment.NewLine +
-                "NomQry=" + Environment.NewLine +
-                "IdQry=" + lxNomScript.Truncate(10) + Environment.NewLine +
-                "" + Environment.NewLine +
-                "[Pmt]" + Environment.NewLine +
-                ";Pmtn=Nombre Publico|Nombre Parametro|Tipo|Default" + Environment.NewLine +
-                ";Tipo: Ver cosntantes de ADO" + Environment.NewLine +
-                ";      7 = adDate" + Environment.NewLine +
-                ";    200 = adVarChar" + Environment.NewLine +
-                "Pmt1=Fecha desde|FchDes|7|01/01/2012" + Environment.NewLine +
-                "Pmt2=Fecha hasta|FchHas|7|01/01/2012";
+                "[CFG]\n" + 
+                "Ver=2\n" +
+                "Dsc=\n" +
+                "Script=\n" +
+                "RtnReg=1\n" +
+                "\n" + 
+                "[Ifo]\n" +
+                "Mdl=3200\n" +
+                "NomQry=\n" +
+                "IdQry=" + lxNomScript.Truncate(10) + "\n" +
+                "\n" +
+                "[Pmt]\n" + 
+                ";Pmtn=Nombre Publico|Nombre Parametro|Tipo|Default\n" + 
+                ";Tipo: Ver cosntantes de ADO\n" +
+                ";      7 = adDate\n" +
+                ";    200 = adVarChar\n" +
+                "Pmt1=Fecha desde|FchDes|7|01/01/2019\n" +
+                "Pmt2=Fecha hasta|FchHas|7|01/01/2019";
 
                 txtCfg.Text = lxTemplate;
-
-
+                
                 txtSQL.Text = "";
             }
         }
@@ -170,6 +172,10 @@ namespace ConsultaDirectaManager {
         private void StatusBarSet(string msg = "")
         {
             txtStatus.Text = msg;
+        }
+        private void StatusBarLocationSet(string msg = "")
+        {
+            txtLocation.Text = msg;
         }
 
         #region "Eventos de la forma"
@@ -223,7 +229,15 @@ namespace ConsultaDirectaManager {
                 }
             }
         }
+        private void txtSQL_KeyUp(object sender, KeyEventArgs e)
+        {
+            int lxOffset = txtSQL.CaretOffset;
+            TextLocation lxTxtLocation = txtSQL.Document.GetLocation(lxOffset);
+
+            StatusBarLocationSet($"Lin: {lxTxtLocation.Line} Col: {lxTxtLocation.Column}");
+
+        }
         #endregion
-        
+
     }
 }
