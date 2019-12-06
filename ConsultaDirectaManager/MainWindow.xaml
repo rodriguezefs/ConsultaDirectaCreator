@@ -48,7 +48,7 @@
             <TextBox x:Name="txtArchLatis" Grid.Column="1" VerticalAlignment="Stretch"></TextBox>
         </Grid>
         <TabControl Grid.Row="2" Margin="2">
-            <TabItem Header="Configuración">
+            <TabItem Header="_1 Configuración">
                 <avalonEdit:TextEditor
                     Margin="2"
                     Name="txtCfg"
@@ -56,7 +56,7 @@
                     SyntaxHighlighting="SQL">
                 </avalonEdit:TextEditor>
             </TabItem>
-            <TabItem Header="Consulta">
+            <TabItem Header="_2 Consulta">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
