@@ -57,12 +57,18 @@ namespace ConsultaDirectaManager {
                     txtCfg.Text = lxCfgText;
                 }
 
-                string lxNomScript = lxCfgText.Split('\r')
+                string lxNomScript = lxCfgText.Split('\n')
                                               .FirstOrDefault(x => x.ToLower().Contains("script"))
                                               .ToString()
                                               .Split('=')[1];
 
                 string lxNomScriptFile = Path.Combine(lxFldrDst, lxNomScript);
+                if (!File.Exists(lxNomScriptFile))
+                {
+                    lxNomScriptFile = Directory.GetFiles(lxFldrDst, "*.sql").FirstOrDefault();
+                }
+
+
                 if (File.Exists(lxNomScriptFile)) {
                     string lxScriptText = File.ReadAllText(lxNomScriptFile, Encoding.GetEncoding(1252));
                     txtSQL.Text = lxScriptText;
@@ -86,10 +92,20 @@ namespace ConsultaDirectaManager {
             if (!Directory.Exists(lxDir)) { Directory.CreateDirectory(lxDir); }
 
             //Guardar cfg.ini
-            txtCfg.Save(Path.Combine(lxDir, CFG_INI));
+            string lxArchCfgIni = Path.Combine(lxDir, CFG_INI);
+            txtCfg.Save(lxArchCfgIni);
 
             //Guardar script.sql
-            txtSQL.Save(Path.Combine(lxDir, lxNomCsl + ".sql"));
+            string lxScriptSQL = IniRead.ValorObtener(lxArchCfgIni, "CFG", "Script");
+            if (string.IsNullOrEmpty(lxScriptSQL))
+            {
+                lxScriptSQL = Path.Combine(lxDir, lxNomCsl + ".sql");
+            } else
+            {
+                lxScriptSQL = Path.Combine(lxDir, lxScriptSQL);
+            }
+
+            txtSQL.Save(lxScriptSQL);
 
             //Comprimir carpeta temporal en formato .zip con extensión .latis
             using (var zip = File.OpenWrite(NomArchLatis)) {
@@ -135,6 +151,7 @@ namespace ConsultaDirectaManager {
                 "RtnReg=1\n" +
                 "\n" + 
                 "[Ifo]\n" +
+                ";3200 = Inventario, 3300 = Ventas" +
                 "Mdl=3200\n" +
                 "NomQry=\n" +
                 "IdQry=" + lxNomScript.Truncate(10) + "\n" +

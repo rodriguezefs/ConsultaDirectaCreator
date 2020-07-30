@@ -8,18 +8,21 @@ using System.Threading.Tasks;
 namespace ConsultaDirectaManager.Util {
     public static class IniRead {
         public static string ValorObtener(string Archivo, string Seccion, string Key) {
-            var vals = File.ReadLines(Archivo, Encoding.GetEncoding(1252))
-                           .SkipWhile(lin => !lin.StartsWith($"[{Seccion}]"))
-                           .Skip(1)
-                           .TakeWhile(lin => !string.IsNullOrEmpty(lin))
-                           .Select(lin => new {
-                                Key = lin.Substring(0, lin.IndexOf('=')),
-                                Value = lin.Substring(lin.IndexOf('=') + 2)
-                            })
-                            //.FirstOrDefault(lin => lin.Contains<string>(Key))
-                            ;
+            var lins = File.ReadLines(Archivo, Encoding.GetEncoding(1252));
 
-            return vals.ToString();
+            var Sec = lins.SkipWhile(lin => !lin.StartsWith($"[{Seccion}]"))
+                           .Skip(1)
+                           .TakeWhile(lin => !string.IsNullOrEmpty(lin));
+
+            var r = from l in Sec
+                    where l.StartsWith(Key)
+                    select new
+                    {
+                        Key = l.Substring(0, l.IndexOf('=')),
+                        Value = l.Substring(l.IndexOf('=') + 1)
+                    };
+
+            return r.FirstOrDefault().Value;
         }
 
         /// <summary>
