@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
-namespace ConsultaDirectaManager.Cmds {
-    public static class Cmds {
+namespace ConsultaDirectaManager.Cmds
+{
+    public static class Cmds
+    {
 
         public static readonly RoutedUICommand Abrir = new RoutedUICommand(
             "Abrir",
@@ -29,7 +26,7 @@ namespace ConsultaDirectaManager.Cmds {
             "cmdGuardar",
             typeof(Cmds),
             new InputGestureCollection() {
-                new KeyGesture(Key.G, ModifierKeys.Control)
+                new KeyGesture(Key.S, ModifierKeys.Control)
         });
 
         public static readonly RoutedUICommand Salir = new RoutedUICommand(
@@ -39,5 +36,23 @@ namespace ConsultaDirectaManager.Cmds {
             new InputGestureCollection() {
                 new KeyGesture(Key.F4, ModifierKeys.Alt)
         });
+
+        public static readonly RoutedCommand ConectarASQLServer = new RoutedUICommand(
+            "Conectar a SQL Server",
+            "cmdConectarASqlServer",
+            typeof(Cmds),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.T, ModifierKeys.Control)
+            });
+
+        public static readonly RoutedCommand EjecutarSQL = new RoutedUICommand(
+            "Ejecutar SQL",
+            "cmdEjecutarSQL",
+            typeof(Cmds),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.F5, ModifierKeys.None)
+            });
     }
 }

@@ -7,7 +7,7 @@
         xmlns:Cmds="clr-namespace:ConsultaDirectaManager.Cmds"
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d"
-        Title="Consulta Directa Creator" Height="640" Width="800" Loaded="Window_Loaded">
+        Title="Consulta Directa Creator" Height="640" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.CommandBindings>
         <CommandBinding Command="Cmds:Cmds.Abrir"  
                         CanExecute="CmdAbir_CanExecute"
@@ -21,6 +21,12 @@
         <CommandBinding Command="Cmds:Cmds.Nuevo"
                         CanExecute="CmdNuevo_CanExecute"
                         Executed="CmdNuevo_Executed"/>
+        <CommandBinding Command="Cmds:Cmds.ConectarASQLServer"
+                        CanExecute="CmdConectarASQLServer_CanExecute"
+                        Executed="CmdConectarASQLServer_Executed"/>
+        <CommandBinding Command="Cmds:Cmds.EjecutarSQL"
+                        CanExecute="CmdEjecutarSQL_CanExecute"
+                        Executed="CmdEjecutarSQL_Executed"/>
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -56,26 +62,45 @@
                     SyntaxHighlighting="SQL">
                 </avalonEdit:TextEditor>
             </TabItem>
-            <TabItem Header="_2 Consulta">
+            <TabItem Header="_2 Consulta" x:Name="TabConsulta">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="30"/>
                         <RowDefinition/>
+                        <RowDefinition Height="30"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <ToolBarTray>
                         <ToolBar>
-                            <Button x:Name="cmdConectar">Conectar</Button>
+                            <Button x:Name="cmdConectar"
+                                    Command="Cmds:Cmds.ConectarASQLServer">Conectar</Button>
                             <Separator/>
-                            <Button x:Name="cmdEjecutarQry">Ejecutar</Button>
+                            <Button x:Name="cmdEjecutarQry"
+                                    Command="Cmds:Cmds.EjecutarSQL">Ejecutar</Button>
                         </ToolBar>
                     </ToolBarTray>
+                    <TextBlock Grid.Row="1" Text="SQL"/>
                     <avalonEdit:TextEditor
-                    Grid.Row="1"
-                    Margin="2"
-                    Name="txtSQL"
-                    FontFamily="Consolas"
-                    SyntaxHighlighting="SQL" KeyUp="txtSQL_KeyUp"/>
+                        Grid.Row="2"
+                        Margin="2"
+                        Name="txtSQL"
+                        FontFamily="Consolas"
+                        SyntaxHighlighting="SQL" KeyUp="txtSQL_KeyUp" MouseUp="txtSQL_MouseUp"/>
+                    <TextBlock Grid.Row="3" Text="Resultado"/>
+                    <TabControl Grid.Row="4" Margin="2">
+                        <TabItem Header="Texto">
+
+                            <avalonEdit:TextEditor 
+                                Name="txtRslt"
+                                IsReadOnly="True"
+                                FontFamily="Consolas"
+                                SyntaxHighlighting="SQL"/>  
+                        </TabItem>
+                        <TabItem Header="Grilla">
+                            <DataGrid x:Name="gridRslt" ItemsSource="{Binding}"></DataGrid>
+                        </TabItem>
+                    </TabControl>
                 </Grid>
             </TabItem>
         </TabControl>
