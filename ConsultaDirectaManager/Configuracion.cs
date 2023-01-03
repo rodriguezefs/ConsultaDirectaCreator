@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 
-namespace ConsultaDirectaManager
+namespace ConsultaDirectaManager;
 {
     public class Configuracion
     {
@@ -23,7 +22,14 @@ namespace ConsultaDirectaManager
             if (File.Exists(ArchCfg))
             {
                 string lxJsonText = File.ReadAllText(ArchCfg);
-                return JsonConvert.DeserializeObject<Configuracion>(lxJsonText);
+                try
+                {
+                    return JsonConvert.DeserializeObject<Configuracion>(lxJsonText);
+                }
+                catch (Exception)
+                {
+                    return new Configuracion();
+                }
             }
             else
             {
