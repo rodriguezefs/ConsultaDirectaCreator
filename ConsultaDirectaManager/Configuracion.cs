@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace ConsultaDirectaManager;
+namespace ConsultaDirectaManager
 {
     public class Configuracion
     {
