@@ -1,9 +1,13 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2046
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34707.107
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsultaDirectaManager", "ConsultaDirectaManager\ConsultaDirectaManager.csproj", "{FF62D588-623A-47CE-913E-8499400E4D3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsultaDirectaManager", "ConsultaDirectaManager\ConsultaDirectaManager.csproj", "{FF62D588-623A-47CE-913E-8499400E4D3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{17D7EA40-027F-45DC-BD9D-CB0222A0E54C}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

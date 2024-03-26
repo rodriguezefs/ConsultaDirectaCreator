@@ -33,7 +33,7 @@
             <RowDefinition Height="25"/>
             <RowDefinition Height="30"/>
             <RowDefinition/>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <Menu>
             <MenuItem Header="_Archivo">
@@ -68,25 +68,68 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="30"/>
                         <RowDefinition/>
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <ToolBarTray>
                         <ToolBar>
-                            <Button x:Name="cmdConectar"
-                                    Command="Cmds:Cmds.ConectarASQLServer">Conectar</Button>
+                            <Button 
+                                x:Name="cmdConectar"
+                                Command="Cmds:Cmds.ConectarASQLServer">
+                                Conectar
+                                <Button.ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold">
+                                            Conectar
+                                        </TextBlock>
+                                        <TextBlock>
+                                        Conectar a una base de Datos de SQL Server
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Button.ToolTip>
+                            </Button>
                             <Separator/>
-                            <Button x:Name="cmdEjecutarQry"
-                                    Command="Cmds:Cmds.EjecutarSQL">Ejecutar</Button>
+                            <Button 
+                                x:Name="cmdEjecutarQry"
+                                Command="Cmds:Cmds.EjecutarSQL">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Path
+                                            Width="32"
+                                            Height="32"
+                                            Stroke="Black">
+                                            <Path.Data>
+                                                <PathGeometry Figures="m-936.987 908.362 5.974 6-5.974 6v-12z"/>
+                                            </Path.Data>
+                                        </Path>
+                                        <TextBlock>Ejecutar</TextBlock>
+                                    </StackPanel>
+                                </Button.Content>
+                                <Button.ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold">
+                                            Ejecutar
+                                        </TextBlock>
+                                        <TextBlock>
+                                            Ejecuta el query en la ventana SQL y muestra el resultado en el panel de Resultados
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Button.ToolTip>
+                            </Button>
                         </ToolBar>
                     </ToolBarTray>
                     <TextBlock Grid.Row="1" Text="SQL"/>
-                    <avalonEdit:TextEditor
+                    <Border
+                        Padding="2"
+                        BorderThickness="1"
+                        Background="GhostWhite"
                         Grid.Row="2"
-                        Margin="2"
-                        Name="txtSQL"
-                        FontFamily="Consolas"
-                        SyntaxHighlighting="SQL" KeyUp="txtSQL_KeyUp" MouseUp="txtSQL_MouseUp"/>
+                        Margin="2">
+                        <avalonEdit:TextEditor
+                            Name="txtSQL"
+                            FontFamily="Consolas"
+                            SyntaxHighlighting="SQL" KeyUp="TxtSQL_KeyUp" MouseUp="TxtSQL_MouseUp"/>
+                    </Border>
                     <TextBlock Grid.Row="3" Text="Resultado"/>
                     <TabControl Grid.Row="4" Margin="2">
                         <TabItem Header="Texto">
@@ -95,7 +138,7 @@
                                 Name="txtRslt"
                                 IsReadOnly="True"
                                 FontFamily="Consolas"
-                                SyntaxHighlighting="SQL"/>  
+                                SyntaxHighlighting="SQL"/>
                         </TabItem>
                         <TabItem Header="Grilla">
                             <DataGrid x:Name="gridRslt" ItemsSource="{Binding}"></DataGrid>
@@ -109,12 +152,22 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <StatusBarItem DockPanel.Dock="Left" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
                     <TextBlock x:Name="txtStatus"/>
                 </StatusBarItem>
                 <StatusBarItem Grid.Column="1">
-                    <TextBlock x:Name="txtLocation" Width="60"/>
+                    <TextBlock x:Name="txtLocation" Width="Auto"/>
+                </StatusBarItem>
+                <StatusBarItem Grid.Column="2">
+                    <TextBlock x:Name="txtDuration" Width="Auto">
+                        <TextBlock.ToolTip>
+                            <ToolTip>
+                                <TextBlock Text="{Binding Text}"/>
+                            </ToolTip>
+                        </TextBlock.ToolTip>
+                    </TextBlock>
                 </StatusBarItem>
             </Grid>
         </StatusBar>
