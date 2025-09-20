@@ -22,7 +22,7 @@
 		<Authors>Eliseo Rodriguez</Authors>
 		<Product>Consulta Directa Manager</Product>
 		<Version>1.5.000</Version>
-		<Copyright>© 2022 - 2024 Eliseo Rodríguez</Copyright>
+		<Copyright>© 2022 - 2025 Eliseo Rodríguez</Copyright>
 		<Description>Permite crear archivos para importar las consultas directas de SQL a Latis</Description>
 		<UseWPF>true</UseWPF>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
@@ -57,11 +57,11 @@
 		</BootstrapperPackage>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="AvalonEdit" Version="6.3.0.90" />
+		<PackageReference Include="AvalonEdit" Version="6.3.1.120" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-		<PackageReference Include="SharpCompress" Version="0.36.0" />
+		<PackageReference Include="SharpCompress" Version="0.40.0" />
 		<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
 	</ItemGroup>
 </Project>

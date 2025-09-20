@@ -7,7 +7,7 @@
         xmlns:Cmds="clr-namespace:ConsultaDirectaManager.Cmds"
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d"
-        Title="Consulta Directa Creator" Height="640" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="Consulta Directa Creator" Width="800" Height="640"  Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.CommandBindings>
         <CommandBinding Command="Cmds:Cmds.Abrir"  
                         CanExecute="CmdAbir_CanExecute"
@@ -35,6 +35,7 @@
             <RowDefinition/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
+
         <Menu>
             <MenuItem Header="_Archivo">
                 <MenuItem Command="Cmds:Cmds.Abrir"/>
@@ -45,6 +46,7 @@
                 <MenuItem Command="Cmds:Cmds.Salir"/>
             </MenuItem>
         </Menu>
+
         <Grid Grid.Row="1" Margin="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
@@ -53,97 +55,127 @@
             <Label>Nombre</Label>
             <TextBox x:Name="txtArchLatis" Grid.Column="1" VerticalAlignment="Stretch"></TextBox>
         </Grid>
+
         <TabControl Grid.Row="2" Margin="2">
             <TabItem Header="_1 Configuración">
-                <avalonEdit:TextEditor
-                    Margin="2"
-                    Name="txtCfg"
-                    FontFamily="Consolas"
-                    SyntaxHighlighting="SQL">
-                </avalonEdit:TextEditor>
-            </TabItem>
-            <TabItem Header="_2 Consulta" x:Name="TabConsulta">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <ToolBarTray>
-                        <ToolBar>
-                            <Button 
-                                x:Name="cmdConectar"
-                                Command="Cmds:Cmds.ConectarASQLServer">
-                                Conectar
-                                <Button.ToolTip>
-                                    <StackPanel>
-                                        <TextBlock FontWeight="Bold">
-                                            Conectar
-                                        </TextBlock>
-                                        <TextBlock>
-                                        Conectar a una base de Datos de SQL Server
-                                        </TextBlock>
-                                    </StackPanel>
-                                </Button.ToolTip>
-                            </Button>
-                            <Separator/>
-                            <Button 
-                                x:Name="cmdEjecutarQry"
-                                Command="Cmds:Cmds.EjecutarSQL">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Path
-                                            Width="32"
-                                            Height="32"
-                                            Stroke="Black">
-                                            <Path.Data>
-                                                <PathGeometry Figures="m-936.987 908.362 5.974 6-5.974 6v-12z"/>
-                                            </Path.Data>
-                                        </Path>
-                                        <TextBlock>Ejecutar</TextBlock>
-                                    </StackPanel>
-                                </Button.Content>
-                                <Button.ToolTip>
-                                    <StackPanel>
-                                        <TextBlock FontWeight="Bold">
-                                            Ejecutar
-                                        </TextBlock>
-                                        <TextBlock>
-                                            Ejecuta el query en la ventana SQL y muestra el resultado en el panel de Resultados
-                                        </TextBlock>
-                                    </StackPanel>
-                                </Button.ToolTip>
-                            </Button>
-                        </ToolBar>
-                    </ToolBarTray>
-                    <TextBlock Grid.Row="1" Text="SQL"/>
-                    <Border
-                        Padding="2"
-                        BorderThickness="1"
-                        Background="GhostWhite"
-                        Grid.Row="2"
-                        Margin="2">
-                        <avalonEdit:TextEditor
-                            Name="txtSQL"
-                            FontFamily="Consolas"
-                            SyntaxHighlighting="SQL" KeyUp="TxtSQL_KeyUp" MouseUp="TxtSQL_MouseUp"/>
-                    </Border>
-                    <TextBlock Grid.Row="3" Text="Resultado"/>
-                    <TabControl Grid.Row="4" Margin="2">
-                        <TabItem Header="Texto">
 
-                            <avalonEdit:TextEditor 
-                                Name="txtRslt"
-                                IsReadOnly="True"
-                                FontFamily="Consolas"
-                                SyntaxHighlighting="SQL"/>
-                        </TabItem>
-                        <TabItem Header="Grilla">
-                            <DataGrid x:Name="gridRslt" ItemsSource="{Binding}"></DataGrid>
-                        </TabItem>
-                    </TabControl>
+                    <TextBlock Grid.Row="0" Text="Configuración" Style="{StaticResource TextBlockTitleStyle}"/>
+                    <Border Grid.Row="1">
+                        <avalonEdit:TextEditor
+                            Margin="2"
+                            Name="txtCfg"
+                            FontFamily="Consolas"
+                            SyntaxHighlighting="Ini">
+                        </avalonEdit:TextEditor>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="_2 Consulta" x:Name="TabConsulta" Height="28" VerticalAlignment="Center" HorizontalAlignment="Right" Width="76">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" BorderBrush="Red" BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="200*"/>
+                            </Grid.RowDefinitions>
+                            <ToolBarTray>
+                                <ToolBar>
+                                    <Button 
+                  x:Name="cmdConectar"
+                  Command="Cmds:Cmds.ConectarASQLServer">
+                                        Conectar
+                                        <Button.ToolTip>
+                                            <StackPanel>
+                                                <TextBlock FontWeight="Bold">
+                              Conectar
+                                                </TextBlock>
+                                                <TextBlock>
+                          Conectar a una base de Datos de SQL Server
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Button.ToolTip>
+                                    </Button>
+                                    <Separator/>
+                                    <Button 
+                  x:Name="cmdEjecutarQry"
+                  Command="Cmds:Cmds.EjecutarSQL">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                              Width="29"
+                              Height="29"
+                              Stroke="Green"
+                              StrokeThickness="2">
+                                                    <Path.Data>
+                                                        <PathGeometry Figures="m-936.987 908.362 5.974 6-5.974 6v-12z"/>
+                                                    </Path.Data>
+                                                </Path>
+                                                <TextBlock>Ejecutar</TextBlock>
+                                            </StackPanel>
+                                        </Button.Content>
+                                        <Button.ToolTip>
+                                            <StackPanel>
+                                                <TextBlock FontWeight="Bold">
+                              Ejecutar
+                                                </TextBlock>
+                                                <TextBlock>
+                              Ejecuta el query en la ventana SQL y muestra el resultado en el panel de Resultados
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Button.ToolTip>
+                                    </Button>
+                                </ToolBar>
+                            </ToolBarTray>
+                            <TextBlock Grid.Row="1" Text="SQL" Style="{StaticResource TextBlockTitleStyle}"/>
+
+                            <avalonEdit:TextEditor
+                                  Grid.Row="2"
+                                  Name="txtSQL"
+                                  FontFamily="Consolas"
+                                  VerticalContentAlignment="Stretch"
+                                  SyntaxHighlighting="SQL" KeyUp="TxtSQL_KeyUp" MouseUp="TxtSQL_MouseUp"/>
+
+                        </Grid>
+                    </Border>
+
+                    <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" ResizeDirection="Rows"/>
+
+                    <Border Grid.Row="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Resultado"  Style="{StaticResource TextBlockTitleStyle}"/>
+                            <TabControl Grid.Row="1" Margin="2">
+                                <TabItem Header="_3 Texto">
+
+                                    <avalonEdit:TextEditor 
+                                      Name="txtRslt"
+                                      IsReadOnly="True"
+                                      FontFamily="Consolas"
+                                      SyntaxHighlighting="SQL"/>
+                                </TabItem>
+                                <TabItem Header="_4 Grilla">
+                                    <DataGrid x:Name="gridRslt" ItemsSource="{Binding}"></DataGrid>
+                                </TabItem>
+                            </TabControl>
+
+                        </Grid>
+
+                    </Border>
                 </Grid>
             </TabItem>
         </TabControl>

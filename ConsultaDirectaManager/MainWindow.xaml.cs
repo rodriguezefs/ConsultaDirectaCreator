@@ -59,7 +59,7 @@ public partial class MainWindow : Window
             }
 
             string lxNomScript = lxCfgText.Split('\n')
-                                          .FirstOrDefault(x => x.ToLower().Contains("script"))
+                                          .FirstOrDefault(x => x.Contains("script", StringComparison.CurrentCultureIgnoreCase))
                                           .ToString()
                                           .Split('=')[1];
 
@@ -68,7 +68,6 @@ public partial class MainWindow : Window
             {
                 lxNomScriptFile = Directory.GetFiles(lxFldrDst, "*.sql").FirstOrDefault();
             }
-
 
             if (File.Exists(lxNomScriptFile))
             {
