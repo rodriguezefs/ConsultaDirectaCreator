@@ -78,12 +78,12 @@
             <TabItem Header="_2 Consulta" x:Name="TabConsulta" Height="28" VerticalAlignment="Center" HorizontalAlignment="Right" Width="76">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="5"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Border Grid.Row="0" BorderBrush="Red" BorderThickness="1">
+                    <Border Grid.Row="0" BorderThickness="1" MinHeight="200">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40"/>
@@ -152,7 +152,7 @@
 
                     <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" ResizeDirection="Rows"/>
 
-                    <Border Grid.Row="2">
+                    <Border Grid.Row="2" MinHeight="200">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40"/>

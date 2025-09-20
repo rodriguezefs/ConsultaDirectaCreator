@@ -1,4 +1,4 @@
-﻿using System.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using System.Windows;
 using System.Windows.Input;
 
@@ -58,11 +58,11 @@ namespace ConsultaDirectaManager
 
             if (TestConection(SQLCnxInfo) == true)
             {
-                MessageBox.Show("Conexión Exitosa", "Prueba de Conexión", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Conexión Exitosa\n Servidor: {txtServidor.Text}", "Prueba de Conexión", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("Error Conexión", "Prueba de Conexión", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error Conexión \n Servidor: {txtServidor.Text}", "Prueba de Conexión", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             this.Cursor = Cursors.Arrow;
         }

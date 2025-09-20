@@ -24,11 +24,11 @@ public class SQLConexionInfo
     {
         if (EsWinAut)
         {
-            return $"Server={Servidor};Database={NombreBasedeDatos};Trusted_Connection=True;";
+            return $"Server={Servidor};Database={NombreBasedeDatos};Trusted_Connection=True;TrustServerCertificate=True;Encrypt=False;";
         }
         else
         {
-            return $"Server={Servidor};Database={NombreBasedeDatos};User Id={Usuario};Password={Password}; ";
+            return $"Server={Servidor};Database={NombreBasedeDatos};User Id={Usuario};Password={Password};TrustServerCertificate=True;Encrypt=False;";
         }
     }
 

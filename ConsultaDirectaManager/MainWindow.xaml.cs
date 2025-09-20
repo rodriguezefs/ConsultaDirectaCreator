@@ -2,16 +2,14 @@
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using Microsoft.Data.SqlClient;
 using Microsoft.Win32;
 using SharpCompress.Common;
 using SharpCompress.Readers;
 using SharpCompress.Writers;
-using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows;
@@ -289,7 +287,8 @@ public partial class MainWindow : Window
                             ? "NULL"
                             : $"{lxRow[lxCol.ColumnName]}";
                         break;
-                };
+                }
+                ;
 
                 lxSB.Append($"{lxPfj}{lxVlr}");
                 lxPfj = "\t";
@@ -359,7 +358,7 @@ public partial class MainWindow : Window
             var endTime = DateTime.Now;
 
             StatusBarDurationSet(endTime - starTime);
-            
+
             ShowDataTable(lxDT);
             gridRslt.DataContext = lxDT;
         }
@@ -490,8 +489,26 @@ public partial class MainWindow : Window
         }
     }
     #endregion
-    void TextAreaDocumentChanged(object sender, EventArgs e)
+    private void TextAreaDocumentChanged(object sender, EventArgs e)
     {
         TabConsulta.Header = "_2 Consulta (x)";
+    }
+
+    private void DataGrid_AutoGeneratingColumn(object sender, System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs e)
+    {
+        if (e.PropertyType == typeof(DateTime) || e.PropertyType == typeof(DateTime?))
+        {
+            (e.Column as System.Windows.Controls.DataGridTextColumn).Binding.StringFormat = "yyyy-MM-dd HH:mm:ss tt";
+        }
+        else if (e.PropertyType == typeof(decimal) || e.PropertyType == typeof(decimal?))
+        {
+            (e.Column as System.Windows.Controls.DataGridTextColumn).Binding.StringFormat = "N4";
+            e.Column.Header = $"{e.Column.Header} (N4)";
+            e.Column.CellStyle = FindResource("RightAlignedCell") as Style;
+        }
+        else if (e.PropertyType == typeof(int) || e.PropertyType == typeof(int?))
+        {
+            e.Column.CellStyle = FindResource("RightAlignedCell") as Style;
+        }
     }
 }
