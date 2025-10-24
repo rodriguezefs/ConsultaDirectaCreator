@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
+		<TargetFramework>net9.0-windows</TargetFramework>
 		<OutputType>WinExe</OutputType>
 		<IsWebBootstrapper>false</IsWebBootstrapper>
 		<PublishUrl>C:\Users\rodri\source\Git\ConsultaDirectaCreator\publish\</PublishUrl>

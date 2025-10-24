@@ -46,6 +46,7 @@ namespace ConsultaDirectaManager
                 ? new SQLConexionInfo(txtServidor.Text, txtBasedeDatos.Text)
                 : new SQLConexionInfo(txtServidor.Text, txtBasedeDatos.Text, txtUsr.Text, txtPsw.Password);
             DialogResult = true;
+            Cfg.GuardarCfg();
         }
 
         private void cmdTest_Click(object sender, RoutedEventArgs e)
