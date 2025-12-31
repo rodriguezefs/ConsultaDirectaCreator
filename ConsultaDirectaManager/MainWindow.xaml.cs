@@ -139,9 +139,7 @@ public partial class MainWindow : Window
 
     private void ArchivoNuevo()
     {
-
-
-        SaveFileDialog lxDlg = new SaveFileDialog
+        SaveFileDialog lxDlg = new()
         {
             DefaultExt = ".latis",
             AddExtension = true,
@@ -159,20 +157,22 @@ public partial class MainWindow : Window
             "[CFG]\n" +
             "Ver=2\n" +
             "Dsc=\n" +
-            "Script=\n" +
+           $"Script={lxNomScript.Truncate(10)}.sql\n" +
             "RtnReg=1\n" +
             "\n" +
             "[Ifo]\n" +
             ";3000 = Compras, 3200 = Inventario, 3300 = Ventas \n" +
             "Mdl=3200\n" +
             "NomQry=\n" +
-            "IdQry=" + lxNomScript.Truncate(10) + "\n" +
+           $"IdQry={lxNomScript.Truncate(10)}\n" +
             "\n" +
             "[Pmt]\n" +
             ";Pmtn=Nombre Publico|Nombre Parametro|Tipo|Default\n" +
             ";Tipo: Ver cosntantes de ADO\n" +
             ";      7 = adDate\n" +
             ";    200 = adVarChar\n" +
+            ";      6 = adCurrency\n" +
+            ";      3 = adInteger\n" +
             "Pmt1=Fecha desde|FchDes|7|01/01/2019\n" +
             "Pmt2=Fecha hasta|FchHas|7|01/01/2019";
 
@@ -379,7 +379,7 @@ public partial class MainWindow : Window
 
     private void StatusBarSet(string msg = "")
     {
-        txtStatus.Text = msg;
+        txtStatus.Text = $"[{DateTime.Now:dd/MM/yyyy hh:mm:ss}] {msg}" ;
     }
     private void StatusBarDurationSet(TimeSpan duration)
     {

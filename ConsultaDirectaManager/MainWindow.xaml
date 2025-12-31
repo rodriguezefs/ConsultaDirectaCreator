@@ -1,175 +1,217 @@
-﻿<Window x:Class="ConsultaDirectaManager.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ConsultaDirectaManager"
-        xmlns:Cmds="clr-namespace:ConsultaDirectaManager.Cmds"
-        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-        mc:Ignorable="d"
-        Title="Consulta Directa Creator" Width="800" Height="640"  Loaded="Window_Loaded" Closing="Window_Closing">
+﻿<Window
+    x:Class="ConsultaDirectaManager.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Cmds="clr-namespace:ConsultaDirectaManager.Cmds"
+    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ConsultaDirectaManager"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Consulta Directa Creator"
+    Width="800"
+    Height="640"
+    Closing="Window_Closing"
+    Loaded="Window_Loaded"
+    mc:Ignorable="d">
     <Window.CommandBindings>
-        <CommandBinding Command="Cmds:Cmds.Abrir"  
-                        CanExecute="CmdAbir_CanExecute"
-                        Executed="CmdAbir_Executed" />
-        <CommandBinding Command="Cmds:Cmds.Guardar"  
-                        CanExecute="CmdGuardar_CanExecute"
-                        Executed="CmdGuardar_Executed" />
-        <CommandBinding Command="Cmds:Cmds.Salir"  
-                        CanExecute="CmdSalir_CanExecute"
-                        Executed="CmdSalir_Executed" />
-        <CommandBinding Command="Cmds:Cmds.Nuevo"
-                        CanExecute="CmdNuevo_CanExecute"
-                        Executed="CmdNuevo_Executed"/>
-        <CommandBinding Command="Cmds:Cmds.ConectarASQLServer"
-                        CanExecute="CmdConectarASQLServer_CanExecute"
-                        Executed="CmdConectarASQLServer_Executed"/>
-        <CommandBinding Command="Cmds:Cmds.EjecutarSQL"
-                        CanExecute="CmdEjecutarSQL_CanExecute"
-                        Executed="CmdEjecutarSQL_Executed"/>
+        <CommandBinding
+            CanExecute="CmdAbir_CanExecute"
+            Command="Cmds:Cmds.Abrir"
+            Executed="CmdAbir_Executed" />
+        <CommandBinding
+            CanExecute="CmdGuardar_CanExecute"
+            Command="Cmds:Cmds.Guardar"
+            Executed="CmdGuardar_Executed" />
+        <CommandBinding
+            CanExecute="CmdSalir_CanExecute"
+            Command="Cmds:Cmds.Salir"
+            Executed="CmdSalir_Executed" />
+        <CommandBinding
+            CanExecute="CmdNuevo_CanExecute"
+            Command="Cmds:Cmds.Nuevo"
+            Executed="CmdNuevo_Executed" />
+        <CommandBinding
+            CanExecute="CmdConectarASQLServer_CanExecute"
+            Command="Cmds:Cmds.ConectarASQLServer"
+            Executed="CmdConectarASQLServer_Executed" />
+        <CommandBinding
+            CanExecute="CmdEjecutarSQL_CanExecute"
+            Command="Cmds:Cmds.EjecutarSQL"
+            Executed="CmdEjecutarSQL_Executed" />
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition/>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="30" />
+            <RowDefinition />
+            <RowDefinition Height="35" />
         </Grid.RowDefinitions>
 
         <Menu>
             <MenuItem Header="_Archivo">
-                <MenuItem Command="Cmds:Cmds.Abrir"/>
-                <MenuItem Command="Cmds:Cmds.Nuevo"/>
-                <Separator/>
-                <MenuItem Command="Cmds:Cmds.Guardar"/>
-                <Separator/>
-                <MenuItem Command="Cmds:Cmds.Salir"/>
+                <MenuItem Command="Cmds:Cmds.Abrir" />
+                <MenuItem Command="Cmds:Cmds.Nuevo" />
+                <Separator />
+                <MenuItem Command="Cmds:Cmds.Guardar" />
+                <MenuItem Command="Cmds:Cmds.GuardarComo" />
+                <Separator />
+                <MenuItem Command="Cmds:Cmds.Salir" />
             </MenuItem>
         </Menu>
 
         <Grid Grid.Row="1" Margin="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Label>Nombre</Label>
-            <TextBox x:Name="txtArchLatis" Grid.Column="1" VerticalAlignment="Stretch"></TextBox>
+            <TextBox
+                x:Name="txtArchLatis"
+                Grid.Column="1"
+                VerticalAlignment="Stretch" />
         </Grid>
 
         <TabControl Grid.Row="2" Margin="2">
             <TabItem Header="_1 Configuración">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="32"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Configuración" Style="{StaticResource TextBlockTitleStyle}"/>
+                    <TextBlock
+                        Grid.Row="0"
+                        Style="{StaticResource TextBlockTitleStyle}"
+                        Text="Configuración" />
                     <Border Grid.Row="1">
                         <avalonEdit:TextEditor
-                            Margin="2"
                             Name="txtCfg"
+                            Margin="2"
                             FontFamily="Consolas"
-                            SyntaxHighlighting="Ini">
-                        </avalonEdit:TextEditor>
+                            SyntaxHighlighting="Ini" />
                     </Border>
                 </Grid>
             </TabItem>
-            <TabItem Header="_2 Consulta" x:Name="TabConsulta" Height="28" VerticalAlignment="Center" HorizontalAlignment="Right" Width="76">
+            <TabItem
+                x:Name="TabConsulta"
+                Width="76"
+                Height="28"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Header="_2 Consulta">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="5"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Border Grid.Row="0" BorderThickness="1" MinHeight="200">
+                    <Border
+                        Grid.Row="0"
+                        MinHeight="200"
+                        BorderThickness="1">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="200*"/>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="200*" />
                             </Grid.RowDefinitions>
                             <ToolBarTray>
                                 <ToolBar>
-                                    <Button 
-                  x:Name="cmdConectar"
-                  Command="Cmds:Cmds.ConectarASQLServer">
+                                    <Button x:Name="cmdConectar" Command="Cmds:Cmds.ConectarASQLServer">
                                         Conectar
                                         <Button.ToolTip>
                                             <StackPanel>
                                                 <TextBlock FontWeight="Bold">
-                              Conectar
+                                                    Conectar
                                                 </TextBlock>
                                                 <TextBlock>
-                          Conectar a una base de Datos de SQL Server
+                                                    Conectar a una base de Datos de SQL Server
                                                 </TextBlock>
                                             </StackPanel>
                                         </Button.ToolTip>
                                     </Button>
-                                    <Separator/>
-                                    <Button 
-                  x:Name="cmdEjecutarQry"
-                  Command="Cmds:Cmds.EjecutarSQL">
+                                    <Separator />
+                                    <Button x:Name="cmdEjecutarQry" Command="Cmds:Cmds.EjecutarSQL">
                                         <Button.Content>
-                                            <StackPanel Orientation="Horizontal">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="32" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
                                                 <Path
-                              Width="29"
-                              Height="29"
-                              Stroke="Green"
-                              StrokeThickness="2">
+                                                    Grid.Column="0"
+                                                    Width="29"
+                                                    Height="29"
+                                                    Stroke="Green"
+                                                    StrokeThickness="1">
                                                     <Path.Data>
-                                                        <PathGeometry Figures="m-936.987 908.362 5.974 6-5.974 6v-12z"/>
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="5,5">
+                                                                <LineSegment Point="5,25" />
+                                                                <LineSegment Point="25,14.5" />
+                                                                <LineSegment Point="5,5" />
+                                                            </PathFigure>
+                                                        </PathGeometry>
                                                     </Path.Data>
                                                 </Path>
-                                                <TextBlock>Ejecutar</TextBlock>
-                                            </StackPanel>
+                                                <TextBlock Grid.Column="1">Ejecutar</TextBlock>
+                                            </Grid>
                                         </Button.Content>
                                         <Button.ToolTip>
                                             <StackPanel>
                                                 <TextBlock FontWeight="Bold">
-                              Ejecutar
+                                                    Ejecutar
                                                 </TextBlock>
                                                 <TextBlock>
-                              Ejecuta el query en la ventana SQL y muestra el resultado en el panel de Resultados
+                                                    Ejecuta el query en la ventana SQL y muestra el resultado en el panel de Resultados
                                                 </TextBlock>
                                             </StackPanel>
                                         </Button.ToolTip>
                                     </Button>
                                 </ToolBar>
                             </ToolBarTray>
-                            <TextBlock Grid.Row="1" Text="SQL" Style="{StaticResource TextBlockTitleStyle}"/>
+                            <TextBlock
+                                Grid.Row="1"
+                                Style="{StaticResource TextBlockTitleStyle}"
+                                Text="SQL" />
 
                             <avalonEdit:TextEditor
-                                  Grid.Row="2"
-                                  Name="txtSQL"
-                                  FontFamily="Consolas"
-                                  VerticalContentAlignment="Stretch"
-                                  SyntaxHighlighting="SQL" KeyUp="TxtSQL_KeyUp" MouseUp="TxtSQL_MouseUp"/>
+                                Name="txtSQL"
+                                Grid.Row="2"
+                                VerticalContentAlignment="Stretch"
+                                FontFamily="Consolas"
+                                KeyUp="TxtSQL_KeyUp"
+                                MouseUp="TxtSQL_MouseUp"
+                                SyntaxHighlighting="SQL" />
 
                         </Grid>
                     </Border>
 
-                    <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" ResizeDirection="Rows"/>
+                    <GridSplitter
+                        Grid.Row="1"
+                        Height="5"
+                        HorizontalAlignment="Stretch"
+                        ResizeDirection="Rows" />
 
                     <Border Grid.Row="2" MinHeight="200">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <TextBlock Text="Resultado"  Style="{StaticResource TextBlockTitleStyle}"/>
+                            <TextBlock Style="{StaticResource TextBlockTitleStyle}" Text="Resultado" />
                             <TabControl Grid.Row="1" Margin="2">
                                 <TabItem Header="_3 Texto">
 
-                                    <avalonEdit:TextEditor 
-                                      Name="txtRslt"
-                                      IsReadOnly="True"
-                                      FontFamily="Consolas"
-                                      SyntaxHighlighting="SQL"/>
+                                    <avalonEdit:TextEditor
+                                        Name="txtRslt"
+                                        FontFamily="Consolas"
+                                        IsReadOnly="True"
+                                        SyntaxHighlighting="SQL" />
                                 </TabItem>
                                 <TabItem Header="_4 Grilla">
-                                    <DataGrid x:Name="gridRslt" ItemsSource="{Binding}"></DataGrid>
+                                    <DataGrid x:Name="gridRslt" ItemsSource="{Binding}" />
                                 </TabItem>
                             </TabControl>
 
@@ -182,21 +224,24 @@
         <StatusBar Grid.Row="3">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <StatusBarItem DockPanel.Dock="Left" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
-                    <TextBlock x:Name="txtStatus"/>
+                <StatusBarItem
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
+                    DockPanel.Dock="Left">
+                    <TextBlock x:Name="txtStatus" />
                 </StatusBarItem>
-                <StatusBarItem Grid.Column="1">
-                    <TextBlock x:Name="txtLocation" Width="Auto"/>
+                <StatusBarItem Grid.Column="1" HorizontalAlignment="Right">
+                    <TextBlock x:Name="txtLocation" Width="Auto" />
                 </StatusBarItem>
-                <StatusBarItem Grid.Column="2">
+                <StatusBarItem Grid.Column="2" HorizontalAlignment="Right">
                     <TextBlock x:Name="txtDuration" Width="Auto">
                         <TextBlock.ToolTip>
                             <ToolTip>
-                                <TextBlock Text="{Binding Text}"/>
+                                <TextBlock Text="{Binding Text}" />
                             </ToolTip>
                         </TextBlock.ToolTip>
                     </TextBlock>

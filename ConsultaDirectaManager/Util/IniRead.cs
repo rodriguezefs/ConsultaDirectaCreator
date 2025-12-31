@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ConsultaDirectaManager.Util {
-    public static class IniRead {
-        public static string ValorObtener(string Archivo, string Seccion, string Key) {
+namespace ConsultaDirectaManager.Util
+{
+    public static class IniRead
+    {
+        public static string ValorObtener(string Archivo, string Seccion, string Key)
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var lins = File.ReadLines(Archivo, Encoding.GetEncoding(1252));
 
             var Sec = lins.SkipWhile(lin => !lin.StartsWith($"[{Seccion}]"))
@@ -18,7 +18,7 @@ namespace ConsultaDirectaManager.Util {
                     where l.StartsWith(Key)
                     select new
                     {
-                        Key = l.Substring(0, l.IndexOf('=')),
+                        Key = l[..l.IndexOf('=')],
                         Value = l.Substring(l.IndexOf('=') + 1)
                     };
 
@@ -28,9 +28,11 @@ namespace ConsultaDirectaManager.Util {
         /// <summary>
         /// Get a substring of the first N characters.
         /// </summary>
-        public static string Truncate(this string source, int length) {
-            if (source.Length > length) {
-                source = source.Substring(0, length);
+        public static string Truncate(this string source, int length)
+        {
+            if (source.Length > length)
+            {
+                source = source[..length];
             }
             return source;
         }
@@ -38,7 +40,8 @@ namespace ConsultaDirectaManager.Util {
         /// <summary>
         /// Get a substring of the first N characters. [Slow]
         /// </summary>
-        public static string Truncate2(this string source, int length) {
+        public static string Truncate2(this string source, int length)
+        {
             return source.Substring(0, Math.Min(length, source.Length));
         }
     }
