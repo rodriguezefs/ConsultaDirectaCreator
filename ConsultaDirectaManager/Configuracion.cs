@@ -1,50 +1,54 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.IO;
 
-namespace ConsultaDirectaManager
+namespace ConsultaDirectaManager;
+
+public class Configuracion
 {
-    public class Configuracion
+    public string AppDataPath { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ConsultaDirectaCreator");
+    public string CfgPth { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ConsultaDirectaCreator", "Configuration");
+    public SQLConexionInfo CnxInfo { get; set; }
+
+    public string ArchCfg { get; set; }
+    public Configuracion()
     {
-        public string AppDataPath { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ConsultaDirectaCreator");
-        public string CfgPth { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ConsultaDirectaCreator", "Configuration");
+        ArchCfg = Path.Combine(CfgPth, "cfg.json");
+    }
+    public Configuracion(SQLConexionInfo cnxInfo)
+    {
+        ArchCfg = Path.Combine(CfgPth, "cfg.json");
+        CnxInfo = cnxInfo;
+    }
 
-        public string ArchCfg { get; set; }
-        public Configuracion()
+    public Configuracion CargarCfg()
+    {
+        if (File.Exists(ArchCfg))
         {
-            ArchCfg = Path.Combine(CfgPth, "cfg.json");
-        }
-
-        public SQLConexionInfo Cnx { get; set; }
-
-        public Configuracion CargarCfg()
-        {
-            if (File.Exists(ArchCfg))
+            string lxJsonText = File.ReadAllText(ArchCfg);
+            try
             {
-                string lxJsonText = File.ReadAllText(ArchCfg);
-                try
-                {
-                    return JsonConvert.DeserializeObject<Configuracion>(lxJsonText);
-                }
-                catch (Exception)
-                {
-                    return new Configuracion();
-                }
+                var lxCfg = JsonConvert.DeserializeObject<Configuracion>(lxJsonText);
+                return lxCfg;
             }
-            else
+            catch (Exception)
             {
                 return new Configuracion();
             }
         }
-
-        public void GuardarCfg()
+        else
         {
-            if (!Directory.Exists(CfgPth))
-            {
-                Directory.CreateDirectory(CfgPth);
-            }
-
-            File.WriteAllText(ArchCfg, JsonConvert.SerializeObject(this));
+            return new Configuracion();
         }
+    }
+
+    public void GuardarCfg(SQLConexionInfo sqlCnxInfo)
+    {
+        CnxInfo = sqlCnxInfo;
+        if (!Directory.Exists(CfgPth))
+        {
+            Directory.CreateDirectory(CfgPth);
+        }
+
+        File.WriteAllText(ArchCfg, JsonConvert.SerializeObject(this));
     }
 }

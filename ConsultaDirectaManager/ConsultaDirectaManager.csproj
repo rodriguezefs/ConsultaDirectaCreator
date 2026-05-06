@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net9.0-windows</TargetFramework>
+		<TargetFramework>net10.0-windows</TargetFramework>
 		<OutputType>WinExe</OutputType>
 		<IsWebBootstrapper>false</IsWebBootstrapper>
 		<PublishUrl>C:\Users\rodri\source\Git\ConsultaDirectaCreator\publish\</PublishUrl>
@@ -21,9 +21,9 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<Authors>Eliseo Rodriguez</Authors>
 		<Product>Consulta Directa Manager</Product>
-		<Version>1.5.000</Version>
-		<Copyright>© 2022 - 2025 Eliseo Rodríguez</Copyright>
-		<Description>Permite crear archivos para importar las consultas directas de SQL a Latis</Description>
+		<Version>1.6.000</Version>
+		<Copyright>© 2022 - 2026 Eliseo Rodríguez</Copyright>
+		<Description>Permite crear y ejecutar archivos para las consultas directas de SQL a Latis</Description>
 		<UseWPF>true</UseWPF>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 	</PropertyGroup>

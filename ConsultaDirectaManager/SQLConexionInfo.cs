@@ -2,6 +2,7 @@
 
 public class SQLConexionInfo
 {
+    public SQLConexionInfo() {}
     public SQLConexionInfo(string servidor, string nombreBasedeDatos)
     {
         Servidor = servidor;

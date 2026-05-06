@@ -20,6 +20,22 @@ namespace ConsultaDirectaManager
 
             Cfg = new Configuracion();
             Cfg = Cfg.CargarCfg();
+
+            if (Cfg.CnxInfo != null)
+            {
+                SetScr(Cfg.CnxInfo);
+            }
+        }
+        public void SetScr(SQLConexionInfo cnInfo)
+        {
+            txtServidor.Text = cnInfo.Servidor;
+            txtBasedeDatos.Text = cnInfo.NombreBasedeDatos;
+            chkEsWindowsAutentication.IsChecked = cnInfo.EsWinAut;
+            if (!cnInfo.EsWinAut)
+            {
+                txtUsr.Text = cnInfo.Usuario;
+                txtPsw.Password = cnInfo.Password;
+            }
         }
 
         public SQLConexionInfo SQLCnxInfo { get; set; }
@@ -46,7 +62,7 @@ namespace ConsultaDirectaManager
                 ? new SQLConexionInfo(txtServidor.Text, txtBasedeDatos.Text)
                 : new SQLConexionInfo(txtServidor.Text, txtBasedeDatos.Text, txtUsr.Text, txtPsw.Password);
             DialogResult = true;
-            Cfg.GuardarCfg();
+            Cfg.GuardarCfg(SQLCnxInfo);
         }
 
         private void cmdTest_Click(object sender, RoutedEventArgs e)
@@ -63,7 +79,7 @@ namespace ConsultaDirectaManager
             }
             else
             {
-                MessageBox.Show("Error Conexión \n Servidor: {txtServidor.Text}", "Prueba de Conexión", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error Conexión \n Servidor: {txtServidor.Text}", "Prueba de Conexión", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             this.Cursor = Cursors.Arrow;
         }
@@ -71,13 +87,13 @@ namespace ConsultaDirectaManager
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (Cfg is null) return;
-            if (Cfg.Cnx == null) return;
+            if (Cfg.CnxInfo == null) return;
 
-            txtBasedeDatos.Text = Cfg.Cnx.NombreBasedeDatos;
-            txtServidor.Text = Cfg.Cnx.Servidor;
-            chkEsWindowsAutentication.IsChecked = Cfg.Cnx.EsWinAut;
-            txtUsr.Text = Cfg.Cnx.Usuario;
-            txtPsw.Password = Cfg.Cnx.Password;
+            txtBasedeDatos.Text = Cfg.CnxInfo.NombreBasedeDatos;
+            txtServidor.Text = Cfg.CnxInfo.Servidor;
+            chkEsWindowsAutentication.IsChecked = Cfg.CnxInfo.EsWinAut;
+            txtUsr.Text = Cfg.CnxInfo.Usuario;
+            txtPsw.Password = Cfg.CnxInfo.Password;
 
         }
 
@@ -100,7 +116,7 @@ namespace ConsultaDirectaManager
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Cfg.GuardarCfg();
+            Cfg.GuardarCfg(SQLCnxInfo);
         }
     }
 }

@@ -31,7 +31,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         Cfg = new Configuracion();
-        SQLCnx = Cfg.Cnx;
+        SQLCnx = Cfg.CnxInfo;
     }
 
     private Configuracion Cfg { get; set; }
@@ -227,13 +227,13 @@ public partial class MainWindow : Window
             Cfg = new Configuracion();
         }
 
-        if (Cfg.Cnx is null && SQLCnx.Servidor != null) Cfg.Cnx = new SQLConexionInfo(SQLCnx.Servidor, SQLCnx.NombreBasedeDatos);
+        if (Cfg.CnxInfo is null && SQLCnx.Servidor != null) Cfg.CnxInfo = new SQLConexionInfo(SQLCnx.Servidor, SQLCnx.NombreBasedeDatos);
 
-        Cfg.Cnx.EsWinAut = SQLCnx.EsWinAut;
-        Cfg.Cnx.Servidor = SQLCnx.Servidor;
-        Cfg.Cnx.NombreBasedeDatos = SQLCnx.NombreBasedeDatos;
-        Cfg.Cnx.Usuario = SQLCnx.Usuario;
-        Cfg.Cnx.Password = SQLCnx.Password;
+        Cfg.CnxInfo.EsWinAut = SQLCnx.EsWinAut;
+        Cfg.CnxInfo.Servidor = SQLCnx.Servidor;
+        Cfg.CnxInfo.NombreBasedeDatos = SQLCnx.NombreBasedeDatos;
+        Cfg.CnxInfo.Usuario = SQLCnx.Usuario;
+        Cfg.CnxInfo.Password = SQLCnx.Password;
     }
 
     void ShowDataTable(DataTable dt)
