@@ -155,7 +155,12 @@
                                                         </PathGeometry>
                                                     </Path.Data>
                                                 </Path>
-                                                <TextBlock Grid.Column="1" Margin="2,0,2,3" VerticalAlignment="Bottom">Ejecutar</TextBlock>
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    Margin="2,0,2,3"
+                                                    VerticalAlignment="Bottom">
+                                                    Ejecutar
+                                                </TextBlock>
                                             </Grid>
                                         </Button.Content>
                                         <Button.ToolTip>

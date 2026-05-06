@@ -119,7 +119,7 @@ public partial class MainWindow : Window
         //Comprimir carpeta temporal en formato .zip con extensión .latis
         using (var zip = File.OpenWrite(NomArchLatis))
         {
-            using (var zipWriter = WriterFactory.Open(zip, ArchiveType.Zip, CompressionType.Deflate))
+            using (var zipWriter = WriterFactory.OpenWriter(zip, ArchiveType.Zip, new WriterOptions(CompressionType.Deflate)))
             {
                 string[] lxFileList = Directory.GetFiles(lxDir);
                 foreach (var filePath in lxFileList)
@@ -207,7 +207,7 @@ public partial class MainWindow : Window
 
         using (Stream stream = File.OpenRead(NomArch))
         {
-            var reader = ReaderFactory.Open(stream);
+            var reader = ReaderFactory.OpenReader(stream);
             while (reader.MoveToNextEntry())
             {
                 if (!reader.Entry.IsDirectory)
