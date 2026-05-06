@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using SharpCompress.Common;
 using SharpCompress.Readers;
 using SharpCompress.Writers;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Globalization;
 using System.IO;
@@ -23,7 +24,9 @@ namespace ConsultaDirectaManager;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private const string CFG_INI = "cfg.ini";
+    public const string CFG_INI = "cfg.ini";
+    public string NomArchLatis { get; set; }
+    public string FldrDst { get; set; }
     public MainWindow()
     {
         InitializeComponent();
@@ -43,8 +46,10 @@ public partial class MainWindow : Window
         {
             string lxNomArch = lxDlg.FileName;
             txtArchLatis.Text = lxNomArch;
+            NomArchLatis = lxNomArch;
 
             string lxFldrDst = Path.Combine(@"C:\temp\", Path.GetRandomFileName());
+            FldrDst = lxFldrDst;
 
             ExtraerTodoslosArchivos(lxNomArch, lxFldrDst);
 
@@ -333,13 +338,28 @@ public partial class MainWindow : Window
 
     private void SQLServerEjecutarSQL()
     {
+        StatusBarClear();
+
         if (SQLCnx == null)
         {
             txtRslt.Text = "No hay conexión.";
             return;
         }
 
-        string lxQry = txtSQL.Text;
+        //Sustitución de parámetros
+        ObservableCollection<Pmts> pmts = new();
+
+        DlgPmt dlgPmt = new(txtCfg.Text);
+        dlgPmt.Owner = this;
+        dlgPmt.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        dlgPmt.ShowDialog();
+        if (dlgPmt.EsOk)
+        {
+            pmts = dlgPmt.Pmts;
+        }
+
+        string lxQry = SusPmts(txtSQL.Text, pmts);
+
         try
         {
             var starTime = DateTime.Now;
@@ -361,12 +381,26 @@ public partial class MainWindow : Window
 
             ShowDataTable(lxDT);
             gridRslt.DataContext = lxDT;
+
+            StatusBarSet("Ejecutado.");
         }
         catch (Exception ex)
         {
             txtRslt.Text = ex.Message;
             StatusBarSet(ex.Message);
         }
+    }
+
+    private string SusPmts(string qry, ObservableCollection<Pmts> pmts)
+    {
+        string lxQry = qry;
+
+        foreach(var pmt in pmts)
+        {
+            lxQry = lxQry.Replace($"?{pmt.PmtName}", $"{pmt.PmtVlr}");
+        }
+
+        return lxQry;
     }
 
     private void StatusBarLocationSet()
@@ -380,6 +414,11 @@ public partial class MainWindow : Window
     private void StatusBarSet(string msg = "")
     {
         txtStatus.Text = $"[{DateTime.Now:dd/MM/yyyy hh:mm:ss}] {msg}" ;
+    }
+    private void StatusBarClear()
+    {
+        txtStatus.Text = "";
+        txtDuration.Text = "";
     }
     private void StatusBarDurationSet(TimeSpan duration)
     {

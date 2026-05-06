@@ -25,6 +25,24 @@ namespace ConsultaDirectaManager.Util
             return r.FirstOrDefault().Value;
         }
 
+        public static string ValorObtenerDesdeTexto(string texto, string seccion, string key)
+        {
+            var lins = texto.Split(new[] { '\n' }, StringSplitOptions.None);
+            var Sec = lins.SkipWhile(lin => !lin.StartsWith($"[{seccion}]"))
+                           .Skip(1)
+                           .TakeWhile(lin => !string.IsNullOrEmpty(lin));
+            var r = from l in Sec
+                    where l.StartsWith(key)
+                    select new
+                    {
+                        Key = l[..l.IndexOf('=')],
+                        Value = l.Substring(l.IndexOf('=') + 1)
+                    };
+            if (r.Any())
+                return r.FirstOrDefault().Value;
+            return "";
+        }
+
         /// <summary>
         /// Get a substring of the first N characters.
         /// </summary>
