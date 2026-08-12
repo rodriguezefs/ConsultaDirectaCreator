@@ -349,9 +349,11 @@ public partial class MainWindow : Window
         //Sustitución de parámetros
         ObservableCollection<Pmts> pmts = new();
 
-        DlgPmt dlgPmt = new(txtCfg.Text);
-        dlgPmt.Owner = this;
-        dlgPmt.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        DlgPmt dlgPmt = new(txtCfg.Text)
+        {
+            Owner = this,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner
+        };
         dlgPmt.ShowDialog();
         if (dlgPmt.EsOk)
         {

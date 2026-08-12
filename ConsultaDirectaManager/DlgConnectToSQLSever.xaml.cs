@@ -118,5 +118,10 @@ namespace ConsultaDirectaManager
         {
             Cfg.GuardarCfg(SQLCnxInfo);
         }
+
+        private void txtServidor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
     }
 }
